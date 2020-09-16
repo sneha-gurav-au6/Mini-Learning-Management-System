@@ -32,6 +32,7 @@ module.exports = {
       const newUser = new User({
         method: "local",
         name: req.body.name,
+        user_type:req.body.user_type,
         phone_no: null,
         city: "",
         country: "",
