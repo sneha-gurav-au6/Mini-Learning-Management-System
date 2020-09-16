@@ -80,6 +80,7 @@ module.exports = {
         }
         const payload = {
           id: user.id,
+          user_type:user.user_type,
           method: user.method,
           name: user.name,
           email: user.local.email,
@@ -112,58 +113,7 @@ module.exports = {
       });
   },
 
-  //user google login
-  googleLogin: async (req, res) => {
-    let payId;
-
-    const existingUser = await User.findOne({ "google.id": req.body.id });
-    if (!existingUser) {
-      const newGoogleUser = new User({
-        method: "google",
-        name: req.body.name,
-        image: req.body.image,
-        google: {
-          id: req.body.id,
-          email: req.body.email,
-        },
-      });
-      await newGoogleUser
-        .save()
-        .then((user) => (payId = user))
-        .catch((err) => console.log(err));
-    } else {
-      console.log("User already exists in database");
-      payId = existingUser;
-    }
-    //geting user data from google and saving in object
-    const jwtPayload = {
-      id: payId.id,
-      method: payId.method,
-      name: payId.name,
-      email: payId.google.email,
-      image: payId.image,
-      city: payId.city,
-      phone_no: payId.phone_no,
-      country:payId.country,
-      about_me: payId.about_me,
-      company: payId.company,
-      hometown: payId.school,
-      languages: payId.languages,
-      gender: payId.gender,
-    };
-    //sign token
-    jwt.sign(
-      jwtPayload,
-      "secret key",
-      { expiresIn: 60 * 60 * 30 },
-      (err, token) => {
-        res.json({
-          message: "Logged in Google Successfully",
-          token: token,
-        });
-      }
-    );
-  },
+ 
 
   //edit user profile -protected route
   editprofile: async (req, res) => {
