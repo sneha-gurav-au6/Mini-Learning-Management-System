@@ -32,14 +32,14 @@ module.exports = {
       const newUser = new User({
         method: "local",
         name: req.body.name,
-        phone_no: req.body.phone_no,
-        city: req.body.city,
-        country: req.body.country,
-        about_me: req.body.about_me,
-        company: req.body.company,
-        hometown: req.body.school,
-        languages: req.body.languages,
-        gender: req.body.gender,
+        phone_no: null,
+        city: "",
+        country: "",
+        about_me:"",
+        company: "",
+        hometown: "",
+        languages: "",
+        gender: "",
         
         image: "https://www.gravatar.com/avatar/anything?s=200&d=mm",
         local: {
