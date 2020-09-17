@@ -12,8 +12,7 @@ router.post("/user/register", registerUser);
 //user login
 router.post("/user/login", loginUser);
 
-//google login
-router.post("/google", googleLogin);
+
 
 //edit profile post route
 router.post(

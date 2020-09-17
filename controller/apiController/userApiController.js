@@ -23,14 +23,14 @@ module.exports = {
     console.log(req.body);
 
     //checking if user already existed or not
-    const user = await User.findOne({ "local.email": req.body.email });
+    const user = await User.findOne({ "email": req.body.email });
     if (user) {
       return res
         .status(400)
         .json({ message: "Email Already Exists, Please Login" });
     } else {
       const newUser = new User({
-        method: "local",
+        
         name: req.body.name,
         user_type:req.body.user_type,
         phone_no: null,
@@ -43,15 +43,15 @@ module.exports = {
         gender: "",
         
         image: "https://www.gravatar.com/avatar/anything?s=200&d=mm",
-        local: {
+        
           email: req.body.email,
           password: req.body.password,
-        },
+        
       });
       bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.local.password, salt, (err, hash) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
-          newUser.local.password = hash;
+          newUser.password = hash;
           newUser
             .save()
             .then((user) =>
@@ -76,14 +76,14 @@ module.exports = {
     User.userFind(email, password)
       .then((user) => {
         if (!user) {
-          return res.status(404).json({ message: "Invalid Creadintials" });
+          return res.status(404).json({ message: "Invalid Creadintials in login" });
         }
         const payload = {
           id: user.id,
           user_type:user.user_type,
           method: user.method,
           name: user.name,
-          email: user.local.email,
+          email: user.email,
           image: user.image,
           city: user.city,
           phone_no: user.phone_no,
@@ -109,7 +109,7 @@ module.exports = {
 
       //if email or password not matches throw error
       .catch((err) => {
-        res.status(401).json({ message: "Incorrect Credentials" });
+        res.status(401).json({ message: "Incorrect Credentials in login" });
       });
   },
 

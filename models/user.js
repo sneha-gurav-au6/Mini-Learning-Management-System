@@ -4,31 +4,18 @@ const bcrypt = require("bcryptjs");
 
 //user model
 const user = new Schema({
-  method: {
-    type: String,
-    enum: ["local", "google"],
-    required: true,
-  },
+ 
 
   //user from input register form
-  local: {
+  
     email: {
       type: String,
     },
     password: {
       type: String,
     },
-  },
 
-  //user from google login
-  google: {
-    id: {
-      type: String,
-    },
-    email: {
-      type: String,
-    },
-  },
+
   name: {
     type: String,
   },
@@ -87,19 +74,22 @@ user.statics.userFind = function (email, password) {
   var userObj = null;
   return new Promise(function (resolve, reject) {
     User.findOne({
-      "local.email": email,
+      "email": email,
     })
       .then(function (user) {
         console.log(user);
         if (!user) {
+          
           return reject("Incorrect Credintials");
         }
         userObj = user;
-        return bcrypt.compare(password, user.local.password);
+        return bcrypt.compare(password, user.password);
       })
       .then(function (isMatched) {
-        if (!isMatched) return reject("Incorrect credentials");
+        if (!isMatched) return reject("Incorrect credentials as");
+        console.log(isMatched)
         resolve(userObj);
+        
       })
       .catch(function (err) {
         reject(err);
