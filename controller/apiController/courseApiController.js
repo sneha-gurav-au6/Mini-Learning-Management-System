@@ -55,5 +55,18 @@ module.exports = {
         .catch((error) => console.log(error));
     };
     saveCourse(newProduct);
-  }
+  },
+  getCourse: (req, res) => {
+    Course.findAll({
+      raw: true,
+    })
+      .then(function (property) {
+        res.send(property);
+      })
+      .catch(function (err) {
+        console.log(err.message);
+      });
+  },
+
 }
+
