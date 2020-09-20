@@ -13,7 +13,6 @@ router.post("/user/register", registerUser);
 router.post("/user/login", loginUser);
 
 
-
 //edit profile post route
 router.post(
     "/user/editprofile",

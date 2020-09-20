@@ -57,10 +57,9 @@ module.exports = {
     saveCourse(newProduct);
   },
   getCourse: (req, res) => {
-    Course.findAll({
-      raw: true,
-    })
+    Course.find()
       .then(function (property) {
+        console.log(property)
         res.send(property);
       })
       .catch(function (err) {
