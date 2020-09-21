@@ -156,7 +156,7 @@ module.exports = {
       // JWT payload
       const jwtPayload = {
         id: user.id,
-
+        user_type:user.user_type,
         name: user.name,
         email: user.email,
         image: user.image,
