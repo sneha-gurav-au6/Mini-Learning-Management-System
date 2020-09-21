@@ -3,7 +3,7 @@ const passport = require("passport");
 const router = express.Router();
 const User = require('../models/user')
 const upload = require("../config/multer");
-const { registerUser,loginUser,googleLogin,editprofile,addRegisteredCourse} =require('../controller/apiController/userApiController')
+const { registerUser,loginUser,editprofile,addRegisteredCourse} =require('../controller/apiController/userApiController')
 const {getUserProfile,myRegisteredCourse,getMyCourse} =require('../controller/normalController/userNormalController')
 
 //post user register
